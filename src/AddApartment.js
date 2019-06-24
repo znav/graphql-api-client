@@ -5,32 +5,42 @@ import gql from 'graphql-tag';
 
 
 const ADD_APARTMENT = gql`
-  mutation CreateOrUpdateApartment($address: String!) {
-    CreateOrUpdateApartment(input: { streetAddress: $address, apartmentId: 123 }) {
+  mutation CreateOrUpdateApartment($address: String!, $apartmentId: Int!) {
+    CreateOrUpdateApartment(input: { streetAddress: $address, apartmentId: $apartmentId }) {
       id
       street_address
     }
   }
 `;
-let input;
 
+let input;
+let id;
 const AddApartment = () => (
-    <Mutation mutation={ADD_APARTMENT}>
+    <Mutation mutation={ADD_APARTMENT} style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
         {(addAparment, { data }) => (
             <div>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
-                        addAparment({ variables: { address: input.value } });
+                        addAparment({ variables: { address: input.value, apartmentId: id.value } });
                         input.value = "";
                     }}
                 >
+                    <div>ID:</div>
+                    <input
+                        ref={node => {
+                            id = node;
+                        }}
+                    />
+                    <br/>
+                    <div>STREET ADRESS:</div>
                     <input
                         ref={node => {
                             input = node;
                         }}
                     />
-                    <button type="submit">Add Apartment</button>
+                    <br/>
+                    <button type="submit">Add Or Update Apartment</button>
                 </form>
             </div>
         )}
