@@ -17,7 +17,7 @@ let input;
 let id;
 const AddApartment = () => (
     <Mutation mutation={ADD_APARTMENT} style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-        {(addAparment, { data }) => (
+        {(addAparment) => (
             <div>
                 <form
                     onSubmit={e => {
@@ -33,7 +33,7 @@ const AddApartment = () => (
                         }}
                     />
                     <br/>
-                    <div>STREET ADRESS:</div>
+                    <div>STREET ADDRESS:</div>
                     <input
                         ref={node => {
                             input = node;
